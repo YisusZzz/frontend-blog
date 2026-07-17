@@ -1,14 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { api } from '../api/axios';
+import axios from 'axios';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [usuario, setUsuario] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault(); // Evita que la página se recargue por defecto
-    
-    // Aquí irá la validación con el backend después.
-    // Por ahora, simulamos el éxito y navegamos al Feed:
-    navigate('/feed'); 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+      // Petición POST real al backend
+      const response = await api.post('/login', { usuario, contrasena });
+      
+      // Guardar el token de acceso en el localStorage
+      const token = response.data.access_token;
+      localStorage.setItem('token', token);
+      
+      // Redirigir al muro (Feed)
+      navigate('/feed');
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data.error || 'Credenciales incorrectas.');
+      } else {
+        setError('No se pudo establecer conexión con el servidor.');
+      }
+    }
   };
 
   return (
@@ -19,14 +40,20 @@ export const Login = () => {
           <p className="mt-2 text-sm text-gray-500">Ingresa a tu cuenta para continuar</p>
         </div>
 
+        {error && (
+          <div className="p-3 text-sm text-red-700 bg-red-100 rounded-lg text-center font-medium">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-            <input required type="email" className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="tu@correo.com" />
+            <label className="block text-sm font-medium text-gray-700">Usuario</label>
+            <input required type="text" value={usuario} onChange={(e) => setUsuario(e.target.value)} className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Tu usuario" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Contraseña</label>
-            <input required type="password" className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="••••••••" />
+            <input required type="password" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className="w-full px-4 py-2 mt-1 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="••••••••" />
           </div>
           <button type="submit" className="w-full px-4 py-2 font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-colors">
             Iniciar Sesión
