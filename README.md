@@ -1,32 +1,32 @@
-# React + TypeScript + Vite
+# Frontend - Cliente Web (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Este es el cliente web de la aplicación, desarrollado con **React**, **TypeScript**, **Vite** y **Tailwind CSS**. Consume la API del backend para permitir el registro, inicio de sesión, visualización del feed y actualización de contraseñas.
 
-Currently, two official plugins are available:
+##  Requisitos Previos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* [Node.js](https://nodejs.org/) (versión 18 o superior)
+* **Importante:** El servidor backend debe estar en ejecución para que la aplicación funcione correctamente.
 
-## React Compiler
+## 🛠️ Instalación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Instala las dependencias necesarias:
 
-## Expanding the Oxlint configuration
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+##  Ejecución de la Aplicación
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Para levantar el entorno de desarrollo local:
+
+```bash
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Abre tu navegador en la URL que te indique la terminal (por lo general, `http://localhost:5173`).
+
+##  Tecnologías Utilizadas
+
+* **React & TypeScript:** Para una UI robusta y tipado estricto.
+* **Axios:** Para el consumo eficiente de la API REST.
+* **Tailwind CSS:** Para los estilos y diseño responsivo.
