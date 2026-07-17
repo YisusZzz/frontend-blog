@@ -7,7 +7,7 @@ Este es el cliente web de la aplicación, desarrollado con **React**, **TypeScri
 * [Node.js](https://nodejs.org/) (versión 18 o superior)
 * **Importante:** El servidor backend debe estar en ejecución para que la aplicación funcione correctamente.
 
-## 🛠️ Instalación
+## Instalación
 
 1. Instala las dependencias necesarias:
 
