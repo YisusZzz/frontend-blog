@@ -14,14 +14,14 @@ export const Login = () => {
     setError('');
 
     try {
-      // Petición POST real al backend
+      
       const response = await api.post('/login', { usuario, contrasena });
       
-      // Guardar el token de acceso en el localStorage
+      
       const token = response.data.access_token;
       localStorage.setItem('token', token);
       
-      // Redirigir al muro (Feed)
+      
       navigate('/feed');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {

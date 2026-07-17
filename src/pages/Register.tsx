@@ -25,17 +25,16 @@ export const Register = () => {
     setSuccess('');
 
     try {
-      // Petición POST real al backend
+      // Petición POST
       const response = await api.post('/register', formData);
       setSuccess(response.data.message || '¡Registro exitoso!');
       
-      // Esperamos segundo y medio para redirigir, así el usuario lee el mensaje de éxito
       setTimeout(() => {
         navigate('/login');
       }, 1500);
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
-        // Captura el mensaje de error de Zod o del servidor
+        
         setError(err.response.data.error || 'Ocurrió un error al registrarse.');
       } else {
         setError('No se pudo establecer conexión con el servidor.');

@@ -16,7 +16,7 @@ export const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [profileError, setProfileError] = useState('');
 
-  // Estados para el formulario de cambio de contraseña
+  
   const [mostrarForm, setMostrarForm] = useState(false);
   const [contrasenaActual, setContrasenaActual] = useState('');
   const [nuevaContrasena, setNuevaContrasena] = useState('');
@@ -45,13 +45,13 @@ export const Profile = () => {
     obtenerPerfil();
   }, [navigate]);
 
-  // Manejador para el cambio de contraseña real
+  
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setPwdError('');
     setPwdSuccess('');
 
-    // Validación básica en el cliente
+    
     if (nuevaContrasena !== confirmarContrasena) {
       setPwdError('La nueva contraseña y su confirmación no coinciden.');
       return;
@@ -63,7 +63,6 @@ export const Profile = () => {
     }
 
     try {
-      // Tu backend espera: { contrasena_actual, nueva_contrasena }
       const response = await api.post('/change-password', {
         contrasena_actual: contrasenaActual,
         nueva_contrasena: nuevaContrasena
@@ -71,12 +70,12 @@ export const Profile = () => {
 
       setPwdSuccess(response.data.message || 'Contraseña actualizada con éxito.');
       
-      // Limpiar campos del formulario
+      
       setContrasenaActual('');
       setNuevaContrasena('');
       setConfirmarContrasena('');
       
-      // Ocultar formulario después de 2.5 segundos de éxito
+      
       setTimeout(() => {
         setMostrarForm(false);
         setPwdSuccess('');
@@ -108,7 +107,7 @@ export const Profile = () => {
   return (
     <div className="min-h-screen bg-gray-200">
       
-      {/* Barra de Navegación Básica */}
+      
       <nav className="flex items-center justify-between p-4 text-white bg-blue-600 shadow-md">
         <div className="flex items-center space-x-6">
           <h1 className="text-xl font-bold cursor-pointer" onClick={() => navigate('/feed')}>Mi App</h1>
@@ -122,7 +121,7 @@ export const Profile = () => {
         </button>
       </nav>
 
-      {/* Contenido del Perfil */}
+      
       <main className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow space-y-6">
         {profileError ? (
           <div className="text-center text-red-500 font-medium p-4">
